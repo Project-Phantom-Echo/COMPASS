@@ -1,0 +1,84 @@
+# ==========================================
+# OctoNet-HAR Basic Settings
+# ==========================================
+modality: [imu, uwb, wifi, tof, mmwave]
+dataset_path: ../data/OctoNet/dataset
+features_path: ./features/features.pt
+num_classes: 62
+embed_dim: 512
+model_input_shape: BCHW
+segmentation_flag: true
+
+# OctoNet pretraining uses 62 classes. The dataset loader keeps the
+# benchmark class order from the 62-way checkpoints and excludes the
+# two extra activities present in the raw CSV. These are the 12 users
+# in the official in-distribution protocol.
+user_list: [1, 2, 3, 4, 5, 6, 7, 111, 102, 104, 101, 108]
+data_split: [0.7, 0.1, 0.2]
+init_rand_seed: 41
+recording_level_split: true
+
+# ==========================================
+# CMPT Training Hyperparameters
+# ==========================================
+batch_size: 32
+learning_rate: 1.0e-4
+training_epoch: 20
+eval_interval: 2
+weight_decay: 5.0e-4
+scheduler: warmuppolylr
+warmup: 5
+power: 0.9
+drop_prob: 0.7
+cmpt_loss_weight: 0.2
+lambda_vicreg: 0.3
+
+output_folder: ./output/
+num_workers: 8
+
+train_loader:
+  batch_size: 32
+  num_workers: 8
+
+val_loader:
+  batch_size: 32
+  num_workers: 8
+
+test_loader:
+  batch_size: 32
+  num_workers: 8
+
+# ==========================================
+# Modality Backbone Metadata
+# ==========================================
+modality_specs:
+  imu:
+    octonet_name: imu
+    node_id: [1]
+    in_channels: 1
+    target_shape: [1, 360, 221]
+    backbone: ./backbones/imu/resnet18.pth
+  uwb:
+    octonet_name: uwb
+    node_id: [1]
+    in_channels: 1
+    target_shape: [1, 102, 1535]
+    backbone: ./backbones/uwb/resnet18.pth
+  wifi:
+    octonet_name: wifi
+    node_id: [1, 2, 3, 4]
+    in_channels: 8
+    target_shape: [8, 420, 114]
+    backbone: ./backbones/wifi/resnet18.pth
+  tof:
+    octonet_name: ToF
+    node_id: [4]
+    in_channels: 1080
+    target_shape: [1080, 8, 8]
+    backbone: ./backbones/tof/resnet18.pth
+  mmwave:
+    octonet_name: mmWave
+    node_id: [1, 2, 3, 4, 5]
+    in_channels: 20
+    target_shape: [20, 54, 150]
+    backbone: ./backbones/mmwave/resnet18.pth

@@ -1,0 +1,112 @@
+# ==========================================
+# 基础配置 (Basic Settings)
+# ==========================================
+modality: ['rgb', 'depth', 'lidar', 'mmwave']
+protocol: protocol3                     # 协议选择
+data_unit: frame
+data_root: '../data/MMFi'
+
+# ==========================================
+# CMPT & 鲁棒性训练配置 (参照 XRF55)
+# ==========================================
+cmpt_dropout: 0.5                       # Proxy 生成器的 Dropout
+cmpt_loss_weight: 0.2                   # 对齐损失 (Align Loss) 的权重 lambda
+simulate_missing: True                  # 训练时是否开启随机模态丢弃 (Robustness Training)
+weight_decay: 5e-4                      # 优化器权重衰减 (防止过拟合)
+
+# ==========================================
+# 训练超参数 (Training Hyperparams)
+# ==========================================
+learning_rate: 1e-4                     # 所有参数使用同一学习率
+training_epoch: 50
+eval_interval: 10
+max_iters_per_epoch: 1000
+
+# 学习率调度器 (Scheduler) - 参考 XRF55
+scheduler: 'warmuppolylr'
+power: 0.9
+warmup: 5                               # Warmup Epochs
+warmup_ratio: 0.1
+drop_prob: 0.7
+# ==========================================
+# 数据集划分 (Split Settings)
+# ==========================================
+split_to_use: random_split              # 使用哪种划分方式
+
+random_split:
+  ratio: 0.8
+  random_seed: 0
+  train_dataset:
+    split: training
+    scenes: None
+    subjects: None
+    actions: all
+  val_dataset:
+    split: validation
+    scenes: None
+    subjects: None
+    actions: all
+
+cross_scene_split:
+  train_dataset:
+    split: training
+    scenes: [ E01, E02, E03 ]
+    subjects: None
+    actions: all
+  val_dataset:
+    split: validation
+    scenes: [ E04 ]
+    subjects: None
+    actions: all
+
+cross_subject_split:
+  train_dataset:
+    split: training
+    scenes: None
+    subjects: [ S01, S02, S03, S04, S06, S07, S08, S09, S11, S12, S13, S14, S16, S17, S18, S19, S21, S22, S23, S24, S26, S27, S28, S29, S31, S32, S33, S34, S36, S37, S38, S39 ]
+    actions: all
+  val_dataset:
+    split: validation
+    scenes: None
+    subjects: [ S05, S10, S15, S20, S25, S30, S35, S40 ]
+    actions: all
+
+manual_split:
+  train_dataset:
+    split: training
+    scenes: None
+    subjects: [S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22, S23, S24, S25, S26, S27, S28, S29, S30, S31, S32, S33, S34, S35, S36, S37, S38, S39, S40]
+    actions: [A01, A02, A03, A04, A05, A06, A07, A08, A09, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21]
+  val_dataset:
+    split: validation
+    scenes: None
+    subjects: [S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22, S23, S24, S25, S26, S27, S28, S29, S30, S31, S32, S33, S34, S35, S36, S37, S38, S39, S40]
+    actions: [A22, A23, A24, A25, A26, A27]
+
+init_rand_seed: 0
+output_folder: ./output/
+num_workers: 16
+# Dataloader 配置
+train_loader:
+  batch_size: 16
+  num_workers: 32
+val_loader:
+  batch_size: 16
+  num_workers: 32
+
+use_wandb: False
+wandb_exp_name: "MMFi_CMPT"
+wandb_project_name: "MMFi_Project"
+
+# ==========================================
+# VICReg cross-modal alignment
+# ==========================================
+lambda_vicreg: 0.3        # overall weight; 0 = disabled
+lambda_proxy_cls: 0.5     # per-proxy classification loss weight
+vicreg_inv: 5.0           # invariance coefficient (soft anchoring)
+vicreg_var: 25.0          # variance coefficient
+vicreg_cov: 1.0           # covariance coefficient
+
+modality_existances:
+  train_random_seed: 0
+  val_random_seed: 1

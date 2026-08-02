@@ -18,7 +18,7 @@ import torch.nn.functional as F
 import numpy as np
 import random
 from tqdm import tqdm
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, random_split
 from pathlib import Path
 from torch.optim import AdamW
 import gc
@@ -192,7 +192,24 @@ def main(_config):
     logger.info("正在初始化数据集...")
     scene = _config.get('scene', 'all')
     trainset = XRF55_Dataset(root_dir=data_root, split='train', scene=scene)
-    valset = XRF55_Dataset(root_dir=data_root, split='test', scene=scene)
+    testset = XRF55_Dataset(root_dir=data_root, split='test', scene=scene)
+
+    # As released, checkpoint selection runs on the test set. val_ratio>0 carves a
+    # held-out slice off the training split and selects on that instead, so the
+    # test set is only read for the final report.
+    val_ratio = float(_config.get('val_ratio', 0.0))
+    if not 0.0 <= val_ratio < 1.0:
+        raise ValueError(f"val_ratio must be in [0, 1), got {val_ratio}")
+    holdout = None
+    if val_ratio > 0:
+        num_val = int(len(trainset) * val_ratio)
+        split_generator = torch.Generator().manual_seed(_config["seed"])
+        trainset, holdout = random_split(
+            trainset, [len(trainset) - num_val, num_val], generator=split_generator)
+        logger.info(f"val_ratio={val_ratio}: {len(trainset)} train / {len(holdout)} val "
+                    f"(selection), {len(testset)} test (final report only)")
+    else:
+        logger.info("val_ratio=0: checkpoint selected on the test set (released behaviour)")
 
     # 3. 模型初始化
     proj_dim = 32
@@ -256,7 +273,7 @@ def main(_config):
     )
 
     valloader = DataLoader(
-        valset,
+        testset,
         batch_size=_config['batch_size'],
         num_workers=_config['num_workers'],
         shuffle=False,
@@ -265,6 +282,22 @@ def main(_config):
         prefetch_factor=4 if _config['num_workers'] > 0 else None,
         collate_fn=collate_fn_padd
     )
+
+    # Loader driving checkpoint selection: the held-out train slice when
+    # val_ratio>0, otherwise the test set (as released).
+    if holdout is not None:
+        selloader = DataLoader(
+            holdout,
+            batch_size=_config['batch_size'],
+            num_workers=_config['num_workers'],
+            shuffle=False,
+            pin_memory=True,
+            persistent_workers=True if _config['num_workers'] > 0 else False,
+            prefetch_factor=4 if _config['num_workers'] > 0 else None,
+            collate_fn=collate_fn_padd
+        )
+    else:
+        selloader = valloader
 
     # 6. 损失函数
     task_loss_fn = nn.CrossEntropyLoss(label_smoothing=0.1)
@@ -453,7 +486,7 @@ def main(_config):
         # --- 验证阶段 ---
         if (epoch + 1) % eval_interval == 0 or (epoch + 1) == _config['max_epoch']:
             logger.info(f"\n[Epoch {epoch + 1}] 正在进行验证...")
-            val_scores = evaluate_xrf55(model, valloader, device, task_loss_fn)
+            val_scores = evaluate_xrf55(model, selloader, device, task_loss_fn)
 
             results_str = pprint.pformat({**train_scores, **val_scores})
             logger.info(f"Epoch {epoch + 1} Results:\n{results_str}")

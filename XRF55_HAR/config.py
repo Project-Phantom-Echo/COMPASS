@@ -27,6 +27,10 @@ BASE_CONFIG = {
     ),
     "scene": "all",
     "class_num": 55,
+    # 0.0 reproduces the released behaviour: the checkpoint is selected on the
+    # test set. Set >0 to hold out that fraction of the training split for
+    # selection instead, leaving the test set untouched until the final report.
+    "val_ratio": 0.0,
     "batch_size": 32,
     "max_epoch": 100,
     "optim_type": "adamw",

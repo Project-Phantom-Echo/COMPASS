@@ -21,16 +21,22 @@ BASE_CONFIG = {
         "XRF55_DATA_ROOT",
         str(REPO_ROOT / "data" / "XRF55"),
     ),
+    "raw_data_dir": os.environ.get("XRF55_RAW_ROOT"),
+    "backbone_dir": os.environ.get("COMPASS_BACKBONE_DIR"),
     "save_dir": os.environ.get(
         "COMPASS_OUTPUT_DIR",
         str(REPO_ROOT / "outputs" / "XRF55"),
     ),
     "scene": "all",
+    "protocol": "trial_split",
     "class_num": 55,
     # 0.0 reproduces the released behaviour: the checkpoint is selected on the
     # test set. Set >0 to hold out that fraction of the training split for
     # selection instead, leaving the test set untouched until the final report.
     "val_ratio": 0.0,
+    # True trains on every training sample, saves epoch 100, and reads the test
+    # split only once after training. This is used for our controlled runs.
+    "final_epoch_only": False,
     "batch_size": 32,
     "max_epoch": 100,
     "optim_type": "adamw",

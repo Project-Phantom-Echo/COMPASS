@@ -22,6 +22,7 @@ from torch.utils.data import DataLoader, random_split
 from pathlib import Path
 from torch.optim import AdamW
 import gc
+import json
 import pprint
 from datetime import datetime
 
@@ -34,7 +35,7 @@ from misc import collate_fn_padd
 
 # --- 3. 引入自定义模块 ---
 from models.cmpt_model_xrf55 import (XRF55_CMPT_Net)
-from dataset.xrf55_dataset import XRF55_Dataset
+from dataset.xrf55_dataset import XRF55_Dataset, make_protocol_datasets
 from Encoders import Encoder, Decoder
 from Extractor import mmwave_feature_extractor, wifi_feature_extractor, rfid_feature_extractor
 
@@ -58,7 +59,39 @@ def print_trainable_parameters(model, logger=None):
         print(msg)
 
 
-def load_custom_encoders(device, logger=None, freeze_backbone=False):
+def validate_protocol_backbones(backbone_dir, protocol, seed, logger):
+    """Reject split-specific backbones that did not pass the train-only check."""
+    if not backbone_dir:
+        return
+    base_path = Path(backbone_dir).expanduser().resolve()
+    metadata_paths = (
+        base_path / 'mmWave' / 'mmwave_ResNet18.json',
+        base_path / 'WIFI' / 'wifi_ResNet18.json',
+        base_path / 'RFID' / 'RFID_ResNet18.json',
+    )
+    for metadata_path in metadata_paths:
+        if not metadata_path.is_file():
+            raise FileNotFoundError(f'Missing backbone metadata: {metadata_path}')
+        metadata = json.loads(metadata_path.read_text())
+        checks = {
+            'protocol': metadata.get('protocol') == protocol,
+            'seed': metadata.get('seed') == seed,
+            'train_samples': metadata.get('train_samples') == 23100,
+            'test_evaluation': metadata.get('test_evaluation') == 'disabled',
+            'fixed_final': metadata.get('checkpoint_selection')
+            == 'fixed final epoch; test evaluation disabled',
+            'train_accuracy': metadata.get('final_train_accuracy', 0.0) >= 0.90,
+        }
+        failed = [name for name, passed in checks.items() if not passed]
+        if failed:
+            raise ValueError(f'Backbone validation failed for {metadata_path}: {failed}')
+        logger.info(
+            f"Validated split-clean backbone: {metadata_path.name}, "
+            f"train_accuracy={metadata['final_train_accuracy']:.4f}"
+        )
+
+
+def load_custom_encoders(device, logger=None, freeze_backbone=False, backbone_dir=None):
     """Load the pretrained modality encoders."""
     backbone_mode = "冻结" if freeze_backbone else "解冻"
     if logger:
@@ -66,7 +99,9 @@ def load_custom_encoders(device, logger=None, freeze_backbone=False):
     else:
         print(f"正在加载预训练 Backbone ({backbone_mode}模式)...")
 
-    base_path = PROJECT_DIR / "backbone_models"
+    base_path = Path(backbone_dir).expanduser().resolve() if backbone_dir else PROJECT_DIR / "backbone_models"
+    if logger:
+        logger.info(f"Backbone directory: {base_path}")
 
     try:
         mmwave_model = torch.load(base_path / "mmWave" / "mmwave_ResNet18.pt", map_location="cpu")
@@ -190,16 +225,36 @@ def main(_config):
 
     # 2. 数据集初始化
     logger.info("正在初始化数据集...")
+    protocol = _config.get('protocol', 'trial_split')
     scene = _config.get('scene', 'all')
-    trainset = XRF55_Dataset(root_dir=data_root, split='train', scene=scene)
-    testset = XRF55_Dataset(root_dir=data_root, split='test', scene=scene)
+    if protocol == 'trial_split':
+        trainset = XRF55_Dataset(root_dir=data_root, split='train', scene=scene)
+        testsets = {
+            'trial_split': XRF55_Dataset(root_dir=data_root, split='test', scene=scene)
+        }
+    else:
+        raw_data_root = _config.get('raw_data_dir') or os.environ.get('XRF55_RAW_ROOT')
+        if not raw_data_root:
+            raise ValueError(
+                f'protocol={protocol} requires raw_data_dir or XRF55_RAW_ROOT'
+            )
+        raw_data_root = str(Path(raw_data_root).expanduser().resolve())
+        logger.info(f'Raw XRF55 root: {raw_data_root}')
+        trainset, testsets = make_protocol_datasets(raw_data_root, protocol)
+    logger.info(
+        f"protocol={protocol}: {len(trainset)} train / "
+        + ", ".join(f"{name}={len(dataset)} test" for name, dataset in testsets.items())
+    )
 
     # As released, checkpoint selection runs on the test set. val_ratio>0 carves a
     # held-out slice off the training split and selects on that instead, so the
     # test set is only read for the final report.
     val_ratio = float(_config.get('val_ratio', 0.0))
+    final_epoch_only = bool(_config.get('final_epoch_only', False))
     if not 0.0 <= val_ratio < 1.0:
         raise ValueError(f"val_ratio must be in [0, 1), got {val_ratio}")
+    if final_epoch_only and val_ratio > 0:
+        raise ValueError('final_epoch_only=True cannot be combined with val_ratio>0')
     holdout = None
     if val_ratio > 0:
         num_val = int(len(trainset) * val_ratio)
@@ -207,15 +262,31 @@ def main(_config):
         trainset, holdout = random_split(
             trainset, [len(trainset) - num_val, num_val], generator=split_generator)
         logger.info(f"val_ratio={val_ratio}: {len(trainset)} train / {len(holdout)} val "
-                    f"(selection), {len(testset)} test (final report only)")
+                    f"(selection), {sum(len(dataset) for dataset in testsets.values())} "
+                    "test (final report only)")
     else:
-        logger.info("val_ratio=0: checkpoint selected on the test set (released behaviour)")
+        if final_epoch_only:
+            logger.info('Fixed final-epoch checkpoint; test data is read only after training')
+        elif len(testsets) != 1:
+            raise ValueError(
+                'Multiple test sets require final_epoch_only=True or a train holdout'
+            )
+        else:
+            logger.info("val_ratio=0: checkpoint selected on the test set (released behaviour)")
 
     # 3. 模型初始化
     proj_dim = 32
     embed_dim = 512
     freeze_backbone = bool(_config.get('freeze_backbone', False))
-    task_encoders = load_custom_encoders(device, logger=logger, freeze_backbone=freeze_backbone)
+    validate_protocol_backbones(
+        _config.get('backbone_dir'), protocol, _config['seed'], logger
+    )
+    task_encoders = load_custom_encoders(
+        device,
+        logger=logger,
+        freeze_backbone=freeze_backbone,
+        backbone_dir=_config.get('backbone_dir'),
+    )
     task_decoder_config = ([embed_dim, _config['class_num']], 'classification')
     cmpt_dropout = _config.get('cmpt_dropout', 0.1)
     fusion_type = _config.get('fusion_type', 'sum')
@@ -272,16 +343,19 @@ def main(_config):
         collate_fn=collate_fn_padd
     )
 
-    valloader = DataLoader(
-        testset,
-        batch_size=_config['batch_size'],
-        num_workers=_config['num_workers'],
-        shuffle=False,
-        pin_memory=True,
-        persistent_workers=True if _config['num_workers'] > 0 else False,
-        prefetch_factor=4 if _config['num_workers'] > 0 else None,
-        collate_fn=collate_fn_padd
-    )
+    testloaders = {
+        name: DataLoader(
+            testset,
+            batch_size=_config['batch_size'],
+            num_workers=_config['num_workers'],
+            shuffle=False,
+            pin_memory=True,
+            persistent_workers=True if _config['num_workers'] > 0 else False,
+            prefetch_factor=4 if _config['num_workers'] > 0 else None,
+            collate_fn=collate_fn_padd,
+        )
+        for name, testset in testsets.items()
+    }
 
     # Loader driving checkpoint selection: the held-out train slice when
     # val_ratio>0, otherwise the test set (as released).
@@ -297,7 +371,7 @@ def main(_config):
             collate_fn=collate_fn_padd
         )
     else:
-        selloader = valloader
+        selloader = None if final_epoch_only else next(iter(testloaders.values()))
 
     # 6. 损失函数
     task_loss_fn = nn.CrossEntropyLoss(label_smoothing=0.1)
@@ -484,7 +558,9 @@ def main(_config):
         metric.reset()
 
         # --- 验证阶段 ---
-        if (epoch + 1) % eval_interval == 0 or (epoch + 1) == _config['max_epoch']:
+        if (not final_epoch_only) and (
+            (epoch + 1) % eval_interval == 0 or (epoch + 1) == _config['max_epoch']
+        ):
             logger.info(f"\n[Epoch {epoch + 1}] 正在进行验证...")
             val_scores = evaluate_xrf55(model, selloader, device, task_loss_fn)
 
@@ -504,6 +580,12 @@ def main(_config):
 
     logger.info("训练结束")
 
+    if final_epoch_only:
+        best_epoch = _config['max_epoch']
+        ckpt_path = save_dir / f"{wandb_exp_name}_best.pth"
+        torch.save(model.state_dict(), ckpt_path)
+        logger.info(f'固定最终模型已保存: Epoch {best_epoch} -> {ckpt_path}')
+
     # --- 训练后鲁棒性评估 ---
     logger.info("开始 7 场景鲁棒性评估...")
 
@@ -516,8 +598,28 @@ def main(_config):
         raw_model.load_state_dict(clean_state, strict=True)
 
         from eval_all import evaluate_robustness, print_results
-        results = evaluate_robustness(raw_model, valloader, device)
-        print_results(results)
+        saved_results = {
+            'protocol': protocol,
+            'seed': _config['seed'],
+            'checkpoint_epoch': best_epoch,
+            'final_epoch_only': final_epoch_only,
+            'test_sets': {},
+        }
+        for test_name, testloader in testloaders.items():
+            print(f'\nTest set: {test_name}')
+            results = evaluate_robustness(raw_model, testloader, device)
+            print_results(results)
+            saved_results['test_sets'][test_name] = {
+                scenario: {
+                    'accuracy': stats['correct'] / stats['total'] * 100,
+                    'loss': stats['loss'] / stats['total'],
+                    'samples': stats['total'],
+                }
+                for scenario, stats in results.items()
+            }
+        results_path = save_dir / 'robustness_results.json'
+        results_path.write_text(json.dumps(saved_results, indent=2) + '\n')
+        logger.info(f'Robustness results saved: {results_path}')
     else:
         logger.warning(f"未找到最佳模型: {best_ckpt}，跳过评估")
 

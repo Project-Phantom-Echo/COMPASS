@@ -31,6 +31,37 @@ polynomial decay, confirming that their reported results used the retained
 reproduction: the paper and the authors' initial public configuration both
 specify a five-epoch warmup-polynomial schedule with power 0.9.
 
+## Backbone `.eval()` is a no-op, so `freeze_backbone` does not freeze BatchNorm
+
+**Status:** Default-path results are unaffected; the `freeze_backbone=True`
+ablation is.
+
+**Location:** `code/XRF55_HAR/train.py` (`load_custom_encoders`, and the
+`model.train()` call at the top of the epoch loop)
+
+The three feature extractors are built with `.eval()`, annotated with a comment
+stating that BatchNorm is deliberately kept in eval mode because it is more
+stable. That has no effect. The epoch loop calls `model.train()`, which recurses
+into every submodule and returns those BatchNorm layers to training mode before
+the first batch. Confirmed directly: constructing a submodule with `.eval()`
+reports `training=False`, calling `parent.train()` flips it to `True`, and a
+forward pass then mutates `running_mean`.
+
+Training consequently uses batch statistics and updates running statistics
+throughout, which is standard behaviour — so the default configuration's results
+are correct as reported, and nothing needs re-running. The comment is simply
+misleading, and reads as an intentional design choice that was never in effect.
+
+The ablation is the real casualty. `freeze_backbone=True` sets
+`requires_grad=False` on backbone parameters but leaves their BatchNorm layers in
+training mode, so normalization statistics keep adapting to the data. That row is
+therefore not a cleanly frozen backbone and should not be presented as a
+frozen-encoder or PEFT-style comparison without qualification.
+
+To freeze properly, put the extractors back into `.eval()` after each
+`model.train()` call, or override `train()` on the wrapper so it never
+propagates into frozen encoders.
+
 ## MMFi discards point-cloud padding masks
 
 **Status:** Deferred while work is focused on XRF55.

@@ -26,7 +26,7 @@ MODALITY="${MODALITIES[$INDEX]}"
 RAW_ROOT="${XRF55_RAW_ROOT:-/mnt/weka/rmkrtchyan/ws/data/XRF55}"
 BACKBONE_ROOT="${COMPASS_PROTOCOL_BACKBONE_ROOT:-$REPO_DIR/outputs/XRF55_protocol_backbones}"
 
-uv run python evaluate_protocol_backbone.py \
+uv run python -m protocols.evaluate_protocol_backbone \
     --raw-root "$RAW_ROOT" \
     --backbone-root "$BACKBONE_ROOT" \
     --protocol "$PROTOCOL" \

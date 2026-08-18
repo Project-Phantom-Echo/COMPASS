@@ -39,7 +39,7 @@ fi
 echo "X-Fi backbone reproduction protocol=$PROTOCOL modality=$MODALITY seed=$SEED"
 nvidia-smi --query-gpu=name,memory.total --format=csv
 
-uv run python pretrain_protocol_backbone.py \
+uv run python -m protocols.pretrain_protocol_backbone \
     --raw-root "$RAW_ROOT" \
     --output-root "$OUTPUT_ROOT" \
     --protocol "$PROTOCOL" \

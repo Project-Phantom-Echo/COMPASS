@@ -1,10 +1,10 @@
 # Project Ray — frozen training environment
 #
-# Provenance: captured from the venv that all 27 SLURM submit scripts invoke as
-#   PYTHON="$PROJECT_ROOT/compass/code/.venv/bin/python"
-# That venv is a `uv` environment (Python 3.11.15, no pip module) living inside the
-# COMPASS upstream clone. It is ignored by that clone's own .gitignore, so nothing in
-# git tracks it. This file exists so the environment is rebuildable if it is ever lost.
+# Provenance: captured with `uv pip freeze` from this repository's own venv,
+# `compass/.venv`, which is the shared interpreter for the whole study. 36 SLURM
+# submit scripts invoke it as "$PROJECT_ROOT/compass/.venv/bin/python": 29 in
+# transformer/code, 5 in x-fi, 2 in cubelearn/code. The venv is gitignored, so
+# this file is the only record of what it contains.
 #
 # Rebuild:
 #   uv venv --python 3.11.15 <target>

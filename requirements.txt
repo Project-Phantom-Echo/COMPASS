@@ -1,0 +1,61 @@
+# Project Ray — frozen training environment
+#
+# Provenance: captured from the venv that all 27 SLURM submit scripts invoke as
+#   PYTHON="$PROJECT_ROOT/compass/code/.venv/bin/python"
+# That venv is a `uv` environment (Python 3.11.15, no pip module) living inside the
+# COMPASS upstream clone. It is ignored by that clone's own .gitignore, so nothing in
+# git tracks it. This file exists so the environment is rebuildable if it is ever lost.
+#
+# Rebuild:
+#   uv venv --python 3.11.15 <target>
+#   uv pip install --python <target>/bin/python -r requirements.txt \
+#       --extra-index-url https://download.pytorch.org/whl/cu121
+#
+# The torch/torchvision/torchaudio/triton pins are CUDA 12.1 builds and will NOT
+# resolve from PyPI alone — the cu121 index above is required.
+#
+# NOTE: the source venv also carries an editable install of the COMPASS clone itself:
+#   -e file:///mnt/weka/fgeikyan/rf-perception-papers/compass/code
+# It is deliberately left out of the pinned list below because an absolute-path
+# editable install is not portable. If Project Ray code imports anything from the
+# COMPASS package, install that clone editable after the pinned deps.
+
+certifi==2026.2.25
+charset-normalizer==3.4.7
+contourpy==1.3.3
+cycler==0.12.1
+einops==0.8.2
+filelock==3.25.2
+fonttools==4.63.0
+fsspec==2026.3.0
+idna==3.11
+jinja2==3.1.6
+joblib==1.5.3
+kiwisolver==1.5.0
+markupsafe==3.0.3
+matplotlib==3.11.1
+mpmath==1.3.0
+networkx==3.6.1
+numpy==1.26.4
+opencv-python==4.11.0.86
+packaging==26.2
+pandas==2.3.3
+pillow==12.1.0
+pyparsing==3.3.2
+python-dateutil==2.9.0.post0
+pytz==2026.1.post1
+pyyaml==6.0.3
+requests==2.33.1
+scikit-learn==1.8.0
+scipy==1.17.0
+six==1.17.0
+sympy==1.14.0
+threadpoolctl==3.6.0
+torch==2.1.1+cu121
+torchaudio==2.1.1+cu121
+torchvision==0.16.1+cu121
+tqdm==4.67.2
+triton==2.1.0
+typing-extensions==4.15.0
+tzdata==2026.1
+urllib3==2.6.3

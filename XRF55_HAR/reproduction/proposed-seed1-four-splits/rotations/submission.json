@@ -1,0 +1,40 @@
+{
+  "user": "asaribekyan",
+  "jobs": [
+    {
+      "stage": "backbones",
+      "job_id": "271090",
+      "count": 9,
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--export=ALL",
+        "--job-name=compass-rotations-backbones",
+        "--array=0-8",
+        "--chdir=/mnt/weka/fgeikyan/rf-perception-papers/compass/XRF55_HAR",
+        "--output=/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/logs/%x_%A_%a.out",
+        "--error=/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/logs/%x_%A_%a.err",
+        "/mnt/weka/fgeikyan/rf-perception-papers/compass/XRF55_HAR/submit_proposed_grid.sh",
+        "backbones"
+      ]
+    },
+    {
+      "stage": "grid",
+      "job_id": "271091",
+      "count": 75,
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--export=ALL",
+        "--job-name=compass-rotations-grid",
+        "--array=0-74",
+        "--chdir=/mnt/weka/fgeikyan/rf-perception-papers/compass/XRF55_HAR",
+        "--output=/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/logs/%x_%A_%a.out",
+        "--error=/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/logs/%x_%A_%a.err",
+        "--dependency=afterok:271090",
+        "/mnt/weka/fgeikyan/rf-perception-papers/compass/XRF55_HAR/submit_proposed_grid.sh",
+        "grid"
+      ]
+    }
+  ]
+}

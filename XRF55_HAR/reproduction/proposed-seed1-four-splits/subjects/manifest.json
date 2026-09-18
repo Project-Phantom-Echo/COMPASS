@@ -1,0 +1,209 @@
+{
+  "backbones": [
+    {
+      "protocol": "unseen_subjects_001",
+      "modality": "wifi",
+      "batch_size": 16,
+      "learning_rate": 0.001,
+      "weight_decay": 0.3,
+      "dropout": 0.0,
+      "seed": 1
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "modality": "rfid",
+      "batch_size": 16,
+      "learning_rate": 0.0003,
+      "weight_decay": 0.3,
+      "dropout": 0.0,
+      "seed": 1
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "modality": "mmwave",
+      "batch_size": 64,
+      "learning_rate": 0.0003,
+      "weight_decay": 0.01,
+      "dropout": 0.0,
+      "seed": 1
+    }
+  ],
+  "tasks": [
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 1e-05,
+      "weight_decay": 0.0
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 1e-05,
+      "weight_decay": 0.01
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 1e-05,
+      "weight_decay": 0.05
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 1e-05,
+      "weight_decay": 0.1
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 1e-05,
+      "weight_decay": 0.3
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 3e-05,
+      "weight_decay": 0.0
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 3e-05,
+      "weight_decay": 0.01
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 3e-05,
+      "weight_decay": 0.05
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 3e-05,
+      "weight_decay": 0.1
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 3e-05,
+      "weight_decay": 0.3
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 0.0001,
+      "weight_decay": 0.0
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 0.0001,
+      "weight_decay": 0.01
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 0.0001,
+      "weight_decay": 0.05
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 0.0001,
+      "weight_decay": 0.1
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 0.0001,
+      "weight_decay": 0.3
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 0.0003,
+      "weight_decay": 0.0
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 0.0003,
+      "weight_decay": 0.01
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 0.0003,
+      "weight_decay": 0.05
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 0.0003,
+      "weight_decay": 0.1
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 0.0003,
+      "weight_decay": 0.3
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 0.001,
+      "weight_decay": 0.0
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 0.001,
+      "weight_decay": 0.01
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 0.001,
+      "weight_decay": 0.05
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 0.001,
+      "weight_decay": 0.1
+    },
+    {
+      "protocol": "unseen_subjects_001",
+      "learning_rate": 0.001,
+      "weight_decay": 0.3
+    }
+  ],
+  "seed": 1,
+  "epochs": 100,
+  "source_sha256": {
+    "compass/XRF55_HAR/Encoders.py": "794f52f690048b062b02ba4488eda6e9836ee256aefd73680aba948d8dbffa8a",
+    "compass/XRF55_HAR/Extractor.py": "f1d571f12ae6b74c621357146598a4f476cbacb15c9e022b6f0642330557f1f9",
+    "compass/XRF55_HAR/backbone_models/RFID/BiLSTM.py": "aa70784464fceee1b3796ea5c867bc0cdfa73f7050a7484763e0c0237b62b3b5",
+    "compass/XRF55_HAR/backbone_models/RFID/ResNet.py": "c5cfa4b0cd1ad28811ee618f6899fce8ae1c0af373128f1b2ecddf505dd6ebb1",
+    "compass/XRF55_HAR/backbone_models/WIFI/BiLSTM.py": "7bece7d6fc6bf621c328cacd8202e70d6b29723af3f14cfaedfa3d6c438ecc9c",
+    "compass/XRF55_HAR/backbone_models/WIFI/ResNet.py": "f0dc9da6d0499dddd45142bee6a44dcfb0011a9c2a73f07fa25e8fa88b9a6dd1",
+    "compass/XRF55_HAR/backbone_models/mmWave/ResNet.py": "43c98e1b53729fdbb985cf08dfb632a43b8647e9b3a203af4f2291edb7a68593",
+    "compass/XRF55_HAR/config.py": "71d7034df131ffc0d0e14800113a89a276d37d8469a4572527e546211523ceff",
+    "compass/XRF55_HAR/dataset/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "compass/XRF55_HAR/dataset/xrf55_dataset.py": "ca0f7601b6342a5052d950e87a3c4038055888821e494922c24f65c53cdbe634",
+    "compass/XRF55_HAR/eval_all.py": "079a86645f5dcfe81cde717969cf4708677e11ac0b3425e7111f6900914269e8",
+    "compass/XRF55_HAR/misc.py": "35187fc441e2eba928cc8ab9d88344f74b5cea2a1db0e64658493de72176105e",
+    "compass/XRF55_HAR/models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "compass/XRF55_HAR/models/cmpt_model_xrf55.py": "a2ac322b085034ef1958b5e4ff5a31a47f87955f7cdf0cd29193da0c7f3ebf25",
+    "compass/XRF55_HAR/proposed_grid.py": "a0a487d449c23687190bf4e39853aa1085e31e08075f85d31d4f18267b9e862d",
+    "compass/XRF55_HAR/split_xrf55_all_scenes.py": "869aa0ad80addd27275655834e9be1a9ba21533549ff525c5a44bdc60730037a",
+    "compass/XRF55_HAR/submit_proposed_grid.sh": "a9d70dd473ebf076d5eb5f62add3cce2ab706725a2aeb72ee10d246c676db0c7",
+    "compass/XRF55_HAR/test_proposed_grid.py": "49755777a805a4e3ef9993e74b14067fccd74b72b6015b7a2807431eee2f76c6",
+    "compass/XRF55_HAR/test_protocol_training.py": "4a575523ac18ed52a601e0c0d3961d8effcf827f41f9943c3d4d540ee017d030",
+    "compass/XRF55_HAR/train.py": "e5c4c6bfc8b5f3a61d95e84c361b039d8f3698e00d5cfd0ae815a2fa15f2e6f0",
+    "compass/shared/__init__.py": "480ad7dc341091249b3085ac6f2a87d2448b17c162fab4d12c0a19818b6cc899",
+    "compass/shared/utils/__init__.py": "ade8d0739f4ffbb54ba0b627bb58f1437a2d77254e59764ccf5540940cc1b551",
+    "compass/shared/utils/metric.py": "2e106f8d96b1504a2e48bdacfdcb32e9ba1d1f79642b7b4977e896417f122272",
+    "compass/shared/utils/optimizers.py": "ee36bb65f3667c1b95fff226a96f444faa6abfd5c717d0c25d9ebdb6dfb1a800",
+    "compass/shared/utils/proxy_routing.py": "1ae4c6d5ee889ba705be2ed6d27074814dc656d2f2cd6c47ad719b05ee7822cf",
+    "compass/shared/utils/schedulers.py": "5a8d581e11796bc5ea8e6b49ae39478b413abb1ea289206ef66ea7f4d978c036",
+    "compass/shared/utils/utils.py": "0c8e68837781595b69709b509ab1fdeacbeb23929545fd9b699c9abb448cf629",
+    "wireless-sensing/experiments-on-xrf55/baseline_protocols.py": "259d2f8921ac23ed844a79d542bbd6c3a0015f68a5ba59ab6eb8c600c5dafd9c",
+    "wireless-sensing/experiments-on-xrf55/split.py": "2d41f32ec9db3108cefc76517c7fc0d4485e0114856029bb7262d4cdec8444fb",
+    "wireless-sensing/experiments-on-xrf55/subject_splits.json": "52610574a5a1af8097b141a39055a60348e3ecc20087df3f749b6ebd8afc0847",
+    "x-fi/XRF55_HAR/XRF55_Dataset.py": "acd30c5e8f1c616a6c0215dde8ce8158297c4d9c9b61b7a7ec3b684ab1fec41f",
+    "x-fi/XRF55_HAR/backbone_models/RFID/ResNet.py": "c5cfa4b0cd1ad28811ee618f6899fce8ae1c0af373128f1b2ecddf505dd6ebb1",
+    "x-fi/XRF55_HAR/backbone_models/WIFI/ResNet.py": "f0dc9da6d0499dddd45142bee6a44dcfb0011a9c2a73f07fa25e8fa88b9a6dd1",
+    "x-fi/XRF55_HAR/backbone_models/mmWave/ResNet.py": "43c98e1b53729fdbb985cf08dfb632a43b8647e9b3a203af4f2291edb7a68593",
+    "x-fi/XRF55_HAR/near_chance.py": "b99d2406d6c82e4ef6d276f4b3472d70b3b5fe28fca3810c2d5065282bc6c8c2",
+    "x-fi/XRF55_HAR/pretrain_backbones.py": "30c721009eb796f3dfd0ac7a94b63e872a3fd022366d20cf17582b5194ef4bad",
+    "x-fi/XRF55_HAR/protocol_backbone_grid.py": "04dc7ee24e54ca642f13746b9c3216d3b7917871d4a8d6fee81226b9dacf0eb3",
+    "x-fi/XRF55_HAR/protocol_backbone_runner.py": "7ac45ed0f45ac5dc9f484ec582d1600ea53faf15f92b4ba05ae07a5a54214c04",
+    "x-fi/XRF55_HAR/protocol_snapshot_v2/dataset.py": "3013551c6f583f1200d51ff1a26f4bb89779e8d91ca0e31a2818ae7166e6e0b4",
+    "x-fi/XRF55_HAR/protocol_snapshot_v2/sha256.json": "b7118a9ddb96c18c87793009d1b4b82987690862389e4976da6fb2c42ad7d6bb",
+    "x-fi/XRF55_HAR/protocol_snapshot_v2/split.py": "2d41f32ec9db3108cefc76517c7fc0d4485e0114856029bb7262d4cdec8444fb",
+    "x-fi/XRF55_HAR/protocol_snapshot_v2/subject_splits.json": "52610574a5a1af8097b141a39055a60348e3ecc20087df3f749b6ebd8afc0847",
+    "x-fi/XRF55_HAR/search_backbone.py": "9773caa152496c2f0233443dcdf5455fcef4e1c542e4255af9a649a642b059f8",
+    "x-fi/XRF55_HAR/search_protocol_backbone.py": "c3a50a79a482ca6f68999763843e7f9fd7c9c33035cf812488647296c918735f"
+  },
+  "backbone_policy": "selected seed-1 configurations retrained on grid training samples only",
+  "selection": "epoch-100 validation accuracy",
+  "test_data_opened": false
+}

@@ -39,6 +39,10 @@ from dataset.xrf55_dataset import XRF55_Dataset, make_protocol_datasets
 from Encoders import Encoder, Decoder
 from Extractor import mmwave_feature_extractor, wifi_feature_extractor, rfid_feature_extractor
 
+sys.path.append(str(Path(__file__).resolve().parents[2] / 'wireless-sensing/experiments-on-xrf55'))
+from baseline_protocols import (NEW_PROTOCOLS, collect as collect_shared, FusionDataset,
+                                evaluation_rng, save_history, load_backbone_runs)
+
 
 PROJECT_DIR = Path(__file__).resolve().parent
 
@@ -91,7 +95,7 @@ def validate_protocol_backbones(backbone_dir, protocol, seed, logger):
         )
 
 
-def load_custom_encoders(device, logger=None, freeze_backbone=False, backbone_dir=None):
+def load_custom_encoders(device, logger=None, freeze_backbone=False, backbone_dir=None, protocol_metadata=None):
     """Load the pretrained modality encoders."""
     backbone_mode = "冻结" if freeze_backbone else "解冻"
     if logger:
@@ -103,17 +107,29 @@ def load_custom_encoders(device, logger=None, freeze_backbone=False, backbone_di
     if logger:
         logger.info(f"Backbone directory: {base_path}")
 
-    try:
-        mmwave_model = torch.load(base_path / "mmWave" / "mmwave_ResNet18.pt", map_location="cpu")
-        wifi_model = torch.load(base_path / "WIFI" / "wifi_ResNet18.pt", map_location="cpu")
-        rfid_model = torch.load(base_path / "RFID" / "RFID_ResNet18.pt", map_location="cpu")
-    except FileNotFoundError as e:
-        err_msg = f"错误: 找不到模型文件。请检查 {base_path} 下的文件结构。"
-        if logger:
-            logger.error(err_msg)
-        else:
-            print(err_msg)
-        raise e
+    if protocol_metadata is not None:
+        if not backbone_dir:
+            raise ValueError('New protocols require split-matched backbone runs in backbone_dir')
+        from backbone_models.mmWave.ResNet import resnet18 as mmwave_constructor
+        from backbone_models.WIFI.ResNet import resnet18 as wifi_constructor
+        from backbone_models.RFID.ResNet import resnet18 as rfid_constructor
+        models, provenance = load_backbone_runs(backbone_dir,
+            {'mmwave':mmwave_constructor, 'wifi':wifi_constructor, 'rfid':rfid_constructor},
+            protocol_metadata['protocol'], protocol_metadata['train_membership'])
+        mmwave_model, wifi_model, rfid_model = (models[m] for m in ('mmwave','wifi','rfid'))
+        protocol_metadata['backbones'] = provenance
+    else:
+        try:
+            mmwave_model = torch.load(base_path / "mmWave" / "mmwave_ResNet18.pt", map_location="cpu")
+            wifi_model = torch.load(base_path / "WIFI" / "wifi_ResNet18.pt", map_location="cpu")
+            rfid_model = torch.load(base_path / "RFID" / "RFID_ResNet18.pt", map_location="cpu")
+        except FileNotFoundError as e:
+            err_msg = f"错误: 找不到模型文件。请检查 {base_path} 下的文件结构。"
+            if logger:
+                logger.error(err_msg)
+            else:
+                print(err_msg)
+            raise e
 
     mmwave_extractor = mmwave_feature_extractor(mmwave_model).eval() # 注意：BN层依然保持eval模式通常更稳定，若需训练BN可改为.train()
     wifi_extractor = wifi_feature_extractor(wifi_model).eval()
@@ -147,13 +163,16 @@ def generate_random_mask(modalities=['mmwave', 'wifi', 'rfid'], drop_prob=0.5):
     return mask
 
 
-def evaluate_xrf55(model, dataloader, device, loss_fn):
+def evaluate_xrf55(model, dataloader, device, loss_fn, max_batches=None):
     model.eval()
     metric = Metrics()
     total_loss = 0.0
+    sample_count = 0
 
     with torch.no_grad():
-        for batch in tqdm(dataloader, desc="验证中"):
+        for batch_index, batch in enumerate(tqdm(dataloader, desc="验证中")):
+            if max_batches is not None and batch_index >= max_batches:
+                break
             mmwave_data, wifi_data, rfid_data, labels = batch
             inputs = {
                 'mmwave': mmwave_data.to(device),
@@ -166,13 +185,16 @@ def evaluate_xrf55(model, dataloader, device, loss_fn):
             logits, _, _ = model(inputs, missing_mask=None)
 
             loss = loss_fn(logits, labels)
-            total_loss += loss.item()
+            total_loss += loss.item() * len(labels)
+            sample_count += len(labels)
 
             _, predicted = torch.max(logits, 1)
             metric.update(predicted, labels)
 
     scores = metric.compute_score(prefix='test_')
-    scores['test_loss'] = total_loss / len(dataloader)
+    if sample_count == 0:
+        raise ValueError('No validation samples')
+    scores['test_loss'] = total_loss / sample_count
     return scores
 
 
@@ -219,7 +241,7 @@ def main(_config):
         data_root_path = PROJECT_DIR.parent / data_root_path
     data_root = str(data_root_path.resolve())
 
-    if not os.path.exists(data_root):
+    if _config.get("protocol") not in NEW_PROTOCOLS and not os.path.exists(data_root):
         logger.error(f"找不到数据集路径: {data_root}")
         raise FileNotFoundError(f"找不到数据集路径: {data_root}")
 
@@ -227,7 +249,20 @@ def main(_config):
     logger.info("正在初始化数据集...")
     protocol = _config.get('protocol', 'trial_split')
     scene = _config.get('scene', 'all')
-    if protocol == 'trial_split':
+    protocol_metadata = None
+    protocol_holdout = None
+    if protocol in NEW_PROTOCOLS:
+        raw_data_root = _config.get('raw_data_dir') or os.environ.get('XRF55_RAW_ROOT')
+        if not raw_data_root:
+            raise ValueError('Set raw_data_dir for new XRF55 protocols')
+        if float(_config.get('val_ratio', 0)) != 0:
+            raise ValueError('New protocols use explicit validation; val_ratio must be zero')
+        data, protocol_metadata = collect_shared(raw_data_root, protocol)
+        trainset = FusionDataset(data['train'])
+        protocol_holdout = FusionDataset(data['validation'])
+        testsets = {}
+        _config['final_epoch_only'] = True
+    elif protocol == 'trial_split':
         trainset = XRF55_Dataset(root_dir=data_root, split='train', scene=scene)
         testsets = {
             'trial_split': XRF55_Dataset(root_dir=data_root, split='test', scene=scene)
@@ -255,7 +290,7 @@ def main(_config):
         raise ValueError(f"val_ratio must be in [0, 1), got {val_ratio}")
     if final_epoch_only and val_ratio > 0:
         raise ValueError('final_epoch_only=True cannot be combined with val_ratio>0')
-    holdout = None
+    holdout = protocol_holdout
     if val_ratio > 0:
         num_val = int(len(trainset) * val_ratio)
         split_generator = torch.Generator().manual_seed(_config["seed"])
@@ -278,15 +313,19 @@ def main(_config):
     proj_dim = 32
     embed_dim = 512
     freeze_backbone = bool(_config.get('freeze_backbone', False))
-    validate_protocol_backbones(
-        _config.get('backbone_dir'), protocol, _config['seed'], logger
-    )
+    if protocol_metadata is None:
+        validate_protocol_backbones(
+            _config.get('backbone_dir'), protocol, _config['seed'], logger
+        )
     task_encoders = load_custom_encoders(
         device,
         logger=logger,
         freeze_backbone=freeze_backbone,
         backbone_dir=_config.get('backbone_dir'),
+        protocol_metadata=protocol_metadata,
     )
+    if protocol_metadata is not None:
+        save_history(save_dir / 'protocol.json', protocol_metadata)
     task_decoder_config = ([embed_dim, _config['class_num']], 'classification')
     cmpt_dropout = _config.get('cmpt_dropout', 0.1)
     fusion_type = _config.get('fusion_type', 'sum')
@@ -382,7 +421,8 @@ def main(_config):
     best_epoch = 0
 
     # 验证间隔
-    eval_interval = 5
+    eval_interval = 1
+    validation_history = []
     lambda_align = float(_config.get('cmpt_loss_weight', 0.2))
     lambda_vicreg = float(_config.get('lambda_vicreg', 0.0))
     vicreg_inv = float(_config.get('vicreg_inv', 25.0))
@@ -432,7 +472,11 @@ def main(_config):
 
         pbar = tqdm(enumerate(trainloader), total=iters_per_epoch, desc=f"Epoch: [{epoch + 1}] LR: {lr:.6f}")
 
+        trained_batches = 0
         for iter, batch in pbar:
+            if _config.get('max_train_batches') is not None and iter >= _config['max_train_batches']:
+                break
+            trained_batches += 1
             mmwave_data, wifi_data, rfid_data, labels = batch
             inputs = {
                 'mmwave': mmwave_data.to(device),
@@ -546,29 +590,36 @@ def main(_config):
             pbar.set_description(desc)
 
         # --- Epoch 结束 ---
-        avg_train_loss = total_loss_meter / (iter + 1)
+        avg_train_loss = total_loss_meter / trained_batches
         train_scores = metric.compute_score(prefix='train_')
         train_scores.update({
             'train_loss': avg_train_loss,
             'epoch': epoch
         })
         if use_impute:
-            avg_recon_loss = recon_loss_meter / (iter + 1)
+            avg_recon_loss = recon_loss_meter / trained_batches
             train_scores['train_recon_loss'] = avg_recon_loss
         metric.reset()
 
         # --- 验证阶段 ---
-        if (not final_epoch_only) and (
+        if protocol_metadata is not None or ((not final_epoch_only) and (
             (epoch + 1) % eval_interval == 0 or (epoch + 1) == _config['max_epoch']
-        ):
+        )):
             logger.info(f"\n[Epoch {epoch + 1}] 正在进行验证...")
-            val_scores = evaluate_xrf55(model, selloader, device, task_loss_fn)
+            with evaluation_rng():
+                val_scores = evaluate_xrf55(model, selloader, device, task_loss_fn, _config.get("max_eval_batches"))
+            validation_history.append({'epoch':epoch+1,
+                'validation_loss':val_scores['test_loss'],
+                'validation_accuracy':val_scores['test_accuracy'],
+                'train_loss':avg_train_loss, 'learning_rate':lr,
+                'train_accuracy':train_scores.get('train_accuracy')})
+            save_history(save_dir / 'validation_history.json', validation_history)
 
             results_str = pprint.pformat({**train_scores, **val_scores})
             logger.info(f"Epoch {epoch + 1} Results:\n{results_str}")
 
             current_acc = val_scores['test_accuracy']
-            if best_performance < current_acc:
+            if not final_epoch_only and best_performance < current_acc:
                 best_performance = current_acc
                 best_epoch = epoch + 1
                 ckpt_path = save_dir / f"{wandb_exp_name}_best.pth"
@@ -579,6 +630,16 @@ def main(_config):
             logger.info(f"[Epoch {epoch + 1}] 训练 Loss: {avg_train_loss:.4f} (跳过验证)")
 
     logger.info("训练结束")
+    if protocol_metadata is not None and _config.get('evaluate_test', False):
+        test_data, _ = collect_shared(raw_data_root, protocol, roles=('test',))
+        testloaders['test'] = DataLoader(FusionDataset(test_data['test']),
+            batch_size=_config['batch_size'], num_workers=_config['num_workers'],
+            shuffle=False, collate_fn=collate_fn_padd)
+    if protocol_metadata is not None:
+        save_history(save_dir / 'result.json', {'protocol':protocol, 'seed':_config['seed'],
+            'status':'smoke_test' if _config.get('max_train_batches') or _config.get('max_eval_batches') else 'completed', 'validation_history':validation_history,
+            'validation':validation_history[-1],
+            'test_data_opened':bool(_config.get('evaluate_test',False))})
 
     if final_epoch_only:
         best_epoch = _config['max_epoch']

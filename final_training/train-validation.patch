@@ -1,0 +1,89 @@
+--- compass/XRF55_HAR/train.py
++++ compass/XRF55_HAR/train.py
+@@ -251,6 +251,9 @@
+     scene = _config.get('scene', 'all')
+     protocol_metadata = None
+     protocol_holdout = None
++    train_with_validation = bool(_config.get("train_with_validation", False))
++    if train_with_validation and (protocol not in NEW_PROTOCOLS or not _config.get("evaluate_test", False)):
++        raise ValueError("Final retraining requires a shared protocol and test evaluation")
+     if protocol in NEW_PROTOCOLS:
+         raw_data_root = _config.get('raw_data_dir') or os.environ.get('XRF55_RAW_ROOT')
+         if not raw_data_root:
+@@ -258,8 +261,20 @@
+         if float(_config.get('val_ratio', 0)) != 0:
+             raise ValueError('New protocols use explicit validation; val_ratio must be zero')
+         data, protocol_metadata = collect_shared(raw_data_root, protocol)
+-        trainset = FusionDataset(data['train'])
+-        protocol_holdout = FusionDataset(data['validation'])
++        if train_with_validation:
++            original_counts = dict(protocol_metadata['counts'])
++            merged = {m: data['train'][m] + data['validation'][m] for m in data['train']}
++            identities = [sample.identity for sample in merged['WiFi']]
++            if len(set(identities)) != len(identities):
++                raise ValueError('Duplicate train+validation identities')
++            trainset = FusionDataset(merged)
++            protocol_metadata.update(training_membership='exact train+validation union',
++                                     original_counts=original_counts,
++                                     final_train_samples=len(trainset))
++            protocol_metadata['training_identities'] = identities
++        else:
++            trainset = FusionDataset(data['train'])
++            protocol_holdout = FusionDataset(data['validation'])
+         testsets = {}
+         _config['final_epoch_only'] = True
+     elif protocol == 'trial_split':
+@@ -423,6 +438,7 @@
+     # 验证间隔
+     eval_interval = 1
+     validation_history = []
++    training_history = []
+     lambda_align = float(_config.get('cmpt_loss_weight', 0.2))
+     lambda_vicreg = float(_config.get('lambda_vicreg', 0.0))
+     vicreg_inv = float(_config.get('vicreg_inv', 25.0))
+@@ -601,8 +617,11 @@
+             train_scores['train_recon_loss'] = avg_recon_loss
+         metric.reset()
+ 
++        training_history.append({'epoch':epoch+1, 'train_loss':avg_train_loss,
++                                 'train_accuracy':train_scores.get('train_accuracy'), 'learning_rate':lr})
++        save_history(save_dir / 'training_history.json', training_history)
+         # --- 验证阶段 ---
+-        if protocol_metadata is not None or ((not final_epoch_only) and (
++        if (protocol_metadata is not None and not train_with_validation) or ((not final_epoch_only) and (
+             (epoch + 1) % eval_interval == 0 or (epoch + 1) == _config['max_epoch']
+         )):
+             logger.info(f"\n[Epoch {epoch + 1}] 正在进行验证...")
+@@ -632,13 +651,18 @@
+     logger.info("训练结束")
+     if protocol_metadata is not None and _config.get('evaluate_test', False):
+         test_data, _ = collect_shared(raw_data_root, protocol, roles=('test',))
++        if train_with_validation:
++            test_ids = {s.identity for s in test_data['test']['WiFi']}
++            if test_ids & {tuple(x) for x in protocol_metadata['training_identities']}:
++                raise ValueError('Train+validation/test overlap')
+         testloaders['test'] = DataLoader(FusionDataset(test_data['test']),
+             batch_size=_config['batch_size'], num_workers=_config['num_workers'],
+             shuffle=False, collate_fn=collate_fn_padd)
+     if protocol_metadata is not None:
+         save_history(save_dir / 'result.json', {'protocol':protocol, 'seed':_config['seed'],
+-            'status':'smoke_test' if _config.get('max_train_batches') or _config.get('max_eval_batches') else 'completed', 'validation_history':validation_history,
+-            'validation':validation_history[-1],
++            'status':'trained_pending_evaluation' if train_with_validation else ('smoke_test' if _config.get('max_train_batches') or _config.get('max_eval_batches') else 'completed'), 'validation_history':validation_history,
++            'training_history':training_history, 'train_with_validation':train_with_validation,
++            'validation':validation_history[-1] if validation_history else None,
+             'test_data_opened':bool(_config.get('evaluate_test',False))})
+ 
+     if final_epoch_only:
+@@ -681,6 +705,11 @@
+         results_path = save_dir / 'robustness_results.json'
+         results_path.write_text(json.dumps(saved_results, indent=2) + '\n')
+         logger.info(f'Robustness results saved: {results_path}')
++        if train_with_validation:
++            report = json.loads((save_dir / 'result.json').read_text())
++            report['status'] = 'smoke_test' if _config.get('max_train_batches') or _config.get('max_eval_batches') else 'completed'
++            report['test_results_file'] = results_path.name
++            save_history(save_dir / 'result.json', report)
+     else:
+         logger.warning(f"未找到最佳模型: {best_ckpt}，跳过评估")
+ 

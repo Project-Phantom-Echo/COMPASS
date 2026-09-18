@@ -1,0 +1,15 @@
+{
+  "job_id": "272178",
+  "user": "amkrtchyan",
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--export=ALL",
+    "--array=0-8",
+    "--output=/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/final-rotations-seeds123/logs/%x_%A_%a.out",
+    "--error=/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/final-rotations-seeds123/logs/%x_%A_%a.err",
+    "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/final-rotations-seeds123/submit.sh",
+    "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/final-rotations-seeds123",
+    "/mnt/weka/fgeikyan/rf-perception-papers/compass/.venv/bin/python"
+  ]
+}

@@ -163,3 +163,15 @@ means.
   not solely from proxy completion.
 - COMPASS reports controlled PTA at `73.5 ± 1.6%`; PTA's own 84.83% average
   uses the easier Scene-1-only protocol.
+
+## Shared XRF55 subject/room protocols
+
+`XRF55_HAR/train.py` supports `unseen_subjects_001`–`216` and
+`unseen_room_subject_rotation_1`–`3`. It uses explicit protocol validation,
+saves `validation_history.json` every epoch, and keeps fixed final-epoch
+selection. Test evaluation requires `evaluate_test=True`. `backbone_dir` must
+contain matching saved search runs under `wifi/`, `rfid/`, `mmwave/`; protocol
+and training-membership provenance are checked. The sibling
+`wireless-sensing/experiments-on-xrf55` shared code is required.
+The validation grid launcher is `XRF55_HAR/proposed_grid.py`; final rotation
+retraining and replay instructions are in [final_training/README.md](final_training/README.md).

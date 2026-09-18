@@ -1,0 +1,20 @@
+[
+  {
+    "protocol": "unseen_room_subject_rotation_1",
+    "train": 33000,
+    "test": 3300,
+    "overlap": 0
+  },
+  {
+    "protocol": "unseen_room_subject_rotation_2",
+    "train": 34100,
+    "test": 3300,
+    "overlap": 0
+  },
+  {
+    "protocol": "unseen_room_subject_rotation_3",
+    "train": 34100,
+    "test": 3300,
+    "overlap": 0
+  }
+]

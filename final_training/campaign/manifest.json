@@ -1,0 +1,1034 @@
+{
+  "tasks": [
+    {
+      "protocol": "unseen_room_subject_rotation_1",
+      "learning_rate": 0.0003,
+      "weight_decay": 0.01,
+      "seed": 1,
+      "backbone_dir": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_1",
+      "train_samples": 33000,
+      "test_samples": 3300,
+      "selection_task": 16
+    },
+    {
+      "protocol": "unseen_room_subject_rotation_1",
+      "learning_rate": 0.0003,
+      "weight_decay": 0.01,
+      "seed": 2,
+      "backbone_dir": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_1",
+      "train_samples": 33000,
+      "test_samples": 3300,
+      "selection_task": 16
+    },
+    {
+      "protocol": "unseen_room_subject_rotation_1",
+      "learning_rate": 0.0003,
+      "weight_decay": 0.01,
+      "seed": 3,
+      "backbone_dir": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_1",
+      "train_samples": 33000,
+      "test_samples": 3300,
+      "selection_task": 16
+    },
+    {
+      "protocol": "unseen_room_subject_rotation_2",
+      "learning_rate": 0.0003,
+      "weight_decay": 0.3,
+      "seed": 1,
+      "backbone_dir": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_2",
+      "train_samples": 34100,
+      "test_samples": 3300,
+      "selection_task": 44
+    },
+    {
+      "protocol": "unseen_room_subject_rotation_2",
+      "learning_rate": 0.0003,
+      "weight_decay": 0.3,
+      "seed": 2,
+      "backbone_dir": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_2",
+      "train_samples": 34100,
+      "test_samples": 3300,
+      "selection_task": 44
+    },
+    {
+      "protocol": "unseen_room_subject_rotation_2",
+      "learning_rate": 0.0003,
+      "weight_decay": 0.3,
+      "seed": 3,
+      "backbone_dir": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_2",
+      "train_samples": 34100,
+      "test_samples": 3300,
+      "selection_task": 44
+    },
+    {
+      "protocol": "unseen_room_subject_rotation_3",
+      "learning_rate": 0.001,
+      "weight_decay": 0.3,
+      "seed": 1,
+      "backbone_dir": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_3",
+      "train_samples": 34100,
+      "test_samples": 3300,
+      "selection_task": 74
+    },
+    {
+      "protocol": "unseen_room_subject_rotation_3",
+      "learning_rate": 0.001,
+      "weight_decay": 0.3,
+      "seed": 2,
+      "backbone_dir": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_3",
+      "train_samples": 34100,
+      "test_samples": 3300,
+      "selection_task": 74
+    },
+    {
+      "protocol": "unseen_room_subject_rotation_3",
+      "learning_rate": 0.001,
+      "weight_decay": 0.3,
+      "seed": 3,
+      "backbone_dir": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_3",
+      "train_samples": 34100,
+      "test_samples": 3300,
+      "selection_task": 74
+    }
+  ],
+  "selected": [
+    {
+      "task": 16,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 0.0003,
+        "weight_decay": 0.01
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-016_20260917_142033/result.json",
+      "result_sha256": "7fb3a21d14ebc49b9d02faba48e1b1305c497f851c63c77ba07ed5b60275b387",
+      "validation_accuracy": 0.2406060606060606
+    },
+    {
+      "task": 44,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 0.0003,
+        "weight_decay": 0.3
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-044_20260917_163210/result.json",
+      "result_sha256": "2802bc70faa44aa16ab4366e93433894a77139593b5a5a948cf5800413dfec45",
+      "validation_accuracy": 0.19363636363636363
+    },
+    {
+      "task": 74,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 0.001,
+        "weight_decay": 0.3
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-074_20260917_184340/result.json",
+      "result_sha256": "6075daeaecbfcceedd2dbd512c3806c63bcba9351befd4e0f57568c14e10744f",
+      "validation_accuracy": 0.09878787878787879
+    }
+  ],
+  "evidence": [
+    {
+      "task": 0,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 1e-05,
+        "weight_decay": 0.0
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-000_20260917_131230/result.json",
+      "result_sha256": "05134f33961504ae52f57b4412c98a24f0ef3fa134213965291c7e2476250bb1",
+      "validation_accuracy": 0.2224242424242424
+    },
+    {
+      "task": 1,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 1e-05,
+        "weight_decay": 0.01
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-001_20260918_001857/result.json",
+      "result_sha256": "04a1562d4f53f93007802ca5b497e4a8060b80dd0a8f895b84fa307ace8d9eab",
+      "validation_accuracy": 0.19727272727272727
+    },
+    {
+      "task": 2,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 1e-05,
+        "weight_decay": 0.05
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-002_20260918_001909/result.json",
+      "result_sha256": "cc5d691c2b811dacb9c803209eb1aedd7ed165e80a159629eb5dab25e98f5fa3",
+      "validation_accuracy": 0.1693939393939394
+    },
+    {
+      "task": 3,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 1e-05,
+        "weight_decay": 0.1
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-003_20260917_132041/result.json",
+      "result_sha256": "e2d2e295a241168bb3ec1ff8d22c555cab1290e55fbb3c797455b17350a0a157",
+      "validation_accuracy": 0.2175757575757576
+    },
+    {
+      "task": 4,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 1e-05,
+        "weight_decay": 0.3
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-004_20260917_132732/result.json",
+      "result_sha256": "9e9c7ee9b29016b37e6d1e852d59b9b46841e04a30792ed120ceb443710c0846",
+      "validation_accuracy": 0.1987878787878788
+    },
+    {
+      "task": 5,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 3e-05,
+        "weight_decay": 0.0
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-005_20260917_140704/result.json",
+      "result_sha256": "785069468872a7723c3e25251d0bdbd1686c3b98421c3405d8f7de163a1984eb",
+      "validation_accuracy": 0.18696969696969698
+    },
+    {
+      "task": 6,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 3e-05,
+        "weight_decay": 0.01
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-006_20260917_140747/result.json",
+      "result_sha256": "d30223f5d1f260e4484099d435bb81d98b0afa2f51c50b2926b92f10a78d0dbe",
+      "validation_accuracy": 0.13636363636363635
+    },
+    {
+      "task": 7,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 3e-05,
+        "weight_decay": 0.05
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-007_20260917_140818/result.json",
+      "result_sha256": "17f94298b2a481024b088f5767f0e15252278ba419c62d4a99a2fcb637e95f9a",
+      "validation_accuracy": 0.17212121212121212
+    },
+    {
+      "task": 8,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 3e-05,
+        "weight_decay": 0.1
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-008_20260917_140921/result.json",
+      "result_sha256": "a9b1cf3d6a25f96c26a28967521f6f5b67f77a6b832365620d88834d0e61dadb",
+      "validation_accuracy": 0.1990909090909091
+    },
+    {
+      "task": 9,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 3e-05,
+        "weight_decay": 0.3
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-009_20260917_140930/result.json",
+      "result_sha256": "136b27964d8282b2ef6de6e4433b1ee0ee73a2424c3ac5a89b9bfce6227847ad",
+      "validation_accuracy": 0.21454545454545454
+    },
+    {
+      "task": 10,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 0.0001,
+        "weight_decay": 0.0
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-010_20260917_141059/result.json",
+      "result_sha256": "d91bbb4b9dc5e8ca52826b40a020096a7c42f03dea31e47eb8aa9e50d7aa5dbe",
+      "validation_accuracy": 0.14606060606060606
+    },
+    {
+      "task": 11,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 0.0001,
+        "weight_decay": 0.01
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-011_20260917_141114/result.json",
+      "result_sha256": "7a53790f47e1313dcc99921cd053c387a88bfb4f5a890e9ed5d6af423da2ee4c",
+      "validation_accuracy": 0.19666666666666666
+    },
+    {
+      "task": 12,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 0.0001,
+        "weight_decay": 0.05
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-012_20260917_141223/result.json",
+      "result_sha256": "3e84161d8410ec68c56b7ee21b8ca07ac493812224b487006a188c0fb62e1ad8",
+      "validation_accuracy": 0.16757575757575757
+    },
+    {
+      "task": 13,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 0.0001,
+        "weight_decay": 0.1
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-013_20260917_141713/result.json",
+      "result_sha256": "dde0bf11e6a9b6dd7b6461d2f9df6bdee372f2b721f56f1abf1949c1db4f20cd",
+      "validation_accuracy": 0.18181818181818182
+    },
+    {
+      "task": 14,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 0.0001,
+        "weight_decay": 0.3
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-014_20260917_141934/result.json",
+      "result_sha256": "e0e43acd6f462bcf0bf08d00b38bcbab7105908c675cb9123664a3a5aec27eda",
+      "validation_accuracy": 0.20393939393939395
+    },
+    {
+      "task": 15,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 0.0003,
+        "weight_decay": 0.0
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-015_20260917_141950/result.json",
+      "result_sha256": "38c33b1d40ae9c9a45a5f0d22fa2ee98a38847def2fc919174d9eb747440e550",
+      "validation_accuracy": 0.18272727272727274
+    },
+    {
+      "task": 16,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 0.0003,
+        "weight_decay": 0.01
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-016_20260917_142033/result.json",
+      "result_sha256": "7fb3a21d14ebc49b9d02faba48e1b1305c497f851c63c77ba07ed5b60275b387",
+      "validation_accuracy": 0.2406060606060606
+    },
+    {
+      "task": 17,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 0.0003,
+        "weight_decay": 0.05
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-017_20260917_142352/result.json",
+      "result_sha256": "a0ff72a08fe70d9f031cb5855e9f6760a74440209d11f72fcd73edca79f9a5aa",
+      "validation_accuracy": 0.20696969696969697
+    },
+    {
+      "task": 18,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 0.0003,
+        "weight_decay": 0.1
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-018_20260917_142502/result.json",
+      "result_sha256": "c32f231f3b760ced8124bf7b80e369449709d98717926ae6e0a8b5a0e1ea5a87",
+      "validation_accuracy": 0.2018181818181818
+    },
+    {
+      "task": 19,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 0.0003,
+        "weight_decay": 0.3
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-019_20260917_142515/result.json",
+      "result_sha256": "3fe851f47f3601630f0a8cf9de1ed08d122878d8618209684d091dac0818d4c2",
+      "validation_accuracy": 0.2084848484848485
+    },
+    {
+      "task": 20,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 0.001,
+        "weight_decay": 0.0
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-020_20260917_142544/result.json",
+      "result_sha256": "5b3a838c4a42e0ffe7c32dd74fbb74bee6e958ef85ab873df097914d2648ee50",
+      "validation_accuracy": 0.19090909090909092
+    },
+    {
+      "task": 21,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 0.001,
+        "weight_decay": 0.01
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-021_20260917_143118/result.json",
+      "result_sha256": "c94e8b386f54789a5b33a9a210b31596341f07306bac6619864ae93655d30744",
+      "validation_accuracy": 0.2190909090909091
+    },
+    {
+      "task": 22,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 0.001,
+        "weight_decay": 0.05
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-022_20260917_143219/result.json",
+      "result_sha256": "cbd6b010826d3e62a056fc8ae2503a96cb16b41987613caa2bfb9472a6917be9",
+      "validation_accuracy": 0.21818181818181817
+    },
+    {
+      "task": 23,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 0.001,
+        "weight_decay": 0.1
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-023_20260917_143416/result.json",
+      "result_sha256": "040f57bf49dbfb292a9d75c9984eebcdd70cce4182b6a92404c9cb8a539302cc",
+      "validation_accuracy": 0.1918181818181818
+    },
+    {
+      "task": 24,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_1",
+        "learning_rate": 0.001,
+        "weight_decay": 0.3
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-024_20260918_013450/result.json",
+      "result_sha256": "c43979b33185f7a0da73d5374d16916043e2ea35a2d1354633a22753a8c49685",
+      "validation_accuracy": 0.22151515151515153
+    },
+    {
+      "task": 25,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 1e-05,
+        "weight_decay": 0.0
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-025_20260917_143442/result.json",
+      "result_sha256": "91f4ffb4f6d705ede6765122011aed747aa5be79f95d8979e57028485dfa9c65",
+      "validation_accuracy": 0.14696969696969697
+    },
+    {
+      "task": 26,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 1e-05,
+        "weight_decay": 0.01
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-026_20260918_014909/result.json",
+      "result_sha256": "ef9f26d4b29db449d9e77799ad0bba56942e4f0313ea8959470f3c452281b74c",
+      "validation_accuracy": 0.14727272727272728
+    },
+    {
+      "task": 27,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 1e-05,
+        "weight_decay": 0.05
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-027_20260917_152900/result.json",
+      "result_sha256": "d826347bf4a7accd339bde0312c1dba1b6c231447a0474db265324edb42082c9",
+      "validation_accuracy": 0.14484848484848484
+    },
+    {
+      "task": 28,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 1e-05,
+        "weight_decay": 0.1
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-028_20260917_153451/result.json",
+      "result_sha256": "cf1ebbd5891332110ddaf11020deefcd9e15616354b9b6c672cb39e92c86b298",
+      "validation_accuracy": 0.11878787878787879
+    },
+    {
+      "task": 29,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 1e-05,
+        "weight_decay": 0.3
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-029_20260917_154001/result.json",
+      "result_sha256": "24cf267a742058e80ff62b5bae3fd726dec421aff760d68ae32e195dab0a7436",
+      "validation_accuracy": 0.15757575757575756
+    },
+    {
+      "task": 30,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 3e-05,
+        "weight_decay": 0.0
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-030_20260917_160329/result.json",
+      "result_sha256": "d01b1bbd50839e18c78f5c8e876341a6c8a42d55a6cb28a3609fe27254948833",
+      "validation_accuracy": 0.15696969696969698
+    },
+    {
+      "task": 31,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 3e-05,
+        "weight_decay": 0.01
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-031_20260917_160731/result.json",
+      "result_sha256": "cd2a54c27700b3af2686c3fd10333780c1c559607dd6c1b670a2c4def1489238",
+      "validation_accuracy": 0.18212121212121213
+    },
+    {
+      "task": 32,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 3e-05,
+        "weight_decay": 0.05
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-032_20260917_161429/result.json",
+      "result_sha256": "7c3da148c431365bac17241053ca85c5f67df14f8a4f759e9c8a857e6f2efac1",
+      "validation_accuracy": 0.1812121212121212
+    },
+    {
+      "task": 33,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 3e-05,
+        "weight_decay": 0.1
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-033_20260917_161444/result.json",
+      "result_sha256": "92dae1c62fb26064f427ef43463074866690de0416d6d749462c431611a707b8",
+      "validation_accuracy": 0.17575757575757575
+    },
+    {
+      "task": 34,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 3e-05,
+        "weight_decay": 0.3
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-034_20260917_161959/result.json",
+      "result_sha256": "819e929ddbde8ffa18df379afb31ed2658c75922e8951132558a5c0bcc71a64d",
+      "validation_accuracy": 0.18393939393939393
+    },
+    {
+      "task": 35,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 0.0001,
+        "weight_decay": 0.0
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-035_20260917_162035/result.json",
+      "result_sha256": "36d96a51cc2db1ac719ac0a491e9cf35d3b610dbf4194c475195ab0bb82166f5",
+      "validation_accuracy": 0.18575757575757576
+    },
+    {
+      "task": 36,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 0.0001,
+        "weight_decay": 0.01
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-036_20260917_162136/result.json",
+      "result_sha256": "412dd0c9c7d47aea22c9a2e6c3d2bc532965c62c6d65ff408310d47ea0c274f2",
+      "validation_accuracy": 0.12666666666666668
+    },
+    {
+      "task": 37,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 0.0001,
+        "weight_decay": 0.05
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-037_20260917_162145/result.json",
+      "result_sha256": "eb4d905fced3071b13f4bc3d5ce885b049fe61d668de0d9ba6d6def7c51665b6",
+      "validation_accuracy": 0.18484848484848485
+    },
+    {
+      "task": 38,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 0.0001,
+        "weight_decay": 0.1
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-038_20260917_162406/result.json",
+      "result_sha256": "e297575df2fe2aaed19a1d873610516253dfd64077c3267ac4f3c388d9c7d73d",
+      "validation_accuracy": 0.15666666666666668
+    },
+    {
+      "task": 39,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 0.0001,
+        "weight_decay": 0.3
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-039_20260917_162450/result.json",
+      "result_sha256": "56c43367f16eea6df2f596e922a2b341f49dded6c17b5ca9d1fbd12f130ba89f",
+      "validation_accuracy": 0.1593939393939394
+    },
+    {
+      "task": 40,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 0.0003,
+        "weight_decay": 0.0
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-040_20260917_162625/result.json",
+      "result_sha256": "8bd7a113e18567c005852734c9b26d120902defe8534285444a13a39bedaa8f3",
+      "validation_accuracy": 0.15696969696969698
+    },
+    {
+      "task": 41,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 0.0003,
+        "weight_decay": 0.01
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-041_20260917_162737/result.json",
+      "result_sha256": "936d8213cdfeafa948a9a4606cce8a8724146b478d901d0ed7c08ac2d835b0ff",
+      "validation_accuracy": 0.14484848484848484
+    },
+    {
+      "task": 42,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 0.0003,
+        "weight_decay": 0.05
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-042_20260917_162820/result.json",
+      "result_sha256": "8e2a097c5bfaf51dae0ebbe62f34af569271be2a2400e57dfa850efb726ed768",
+      "validation_accuracy": 0.14393939393939395
+    },
+    {
+      "task": 43,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 0.0003,
+        "weight_decay": 0.1
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-043_20260917_162955/result.json",
+      "result_sha256": "633cfc6f5819485c9f384ffe8a1356a6735388a471c00eda8496997b81c357a8",
+      "validation_accuracy": 0.14393939393939395
+    },
+    {
+      "task": 44,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 0.0003,
+        "weight_decay": 0.3
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-044_20260917_163210/result.json",
+      "result_sha256": "2802bc70faa44aa16ab4366e93433894a77139593b5a5a948cf5800413dfec45",
+      "validation_accuracy": 0.19363636363636363
+    },
+    {
+      "task": 45,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 0.001,
+        "weight_decay": 0.0
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-045_20260917_163338/result.json",
+      "result_sha256": "dc24b68ed7798e7cde586513701faa61ade6396e670a84d7d087bd3387f37fe1",
+      "validation_accuracy": 0.1003030303030303
+    },
+    {
+      "task": 46,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 0.001,
+        "weight_decay": 0.01
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-046_20260917_163338/result.json",
+      "result_sha256": "10c7bd7893a578acee463d123926bec931140900292f0ff291bffb405476df98",
+      "validation_accuracy": 0.0703030303030303
+    },
+    {
+      "task": 47,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 0.001,
+        "weight_decay": 0.05
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-047_20260917_163549/result.json",
+      "result_sha256": "ae062cea60983c91234d1c93f15a26679737c104eebdc34ac0c806e1db661592",
+      "validation_accuracy": 0.19
+    },
+    {
+      "task": 48,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 0.001,
+        "weight_decay": 0.1
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-048_20260917_163820/result.json",
+      "result_sha256": "b6532a720819ea60d32752b31b79ae15a44e067bdff9f896bf7e44b5a028197e",
+      "validation_accuracy": 0.19333333333333333
+    },
+    {
+      "task": 49,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_2",
+        "learning_rate": 0.001,
+        "weight_decay": 0.3
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-049_20260917_164152/result.json",
+      "result_sha256": "70e95fba5d90c0938c9721a5afdad272084e826fab9e40c3cb119193a25bfbdf",
+      "validation_accuracy": 0.17757575757575758
+    },
+    {
+      "task": 50,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 1e-05,
+        "weight_decay": 0.0
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-050_20260917_164214/result.json",
+      "result_sha256": "7c7be45dceefc9b7dce6f73a371138ce4f691258969c7e2d50edcbf9f95eec5e",
+      "validation_accuracy": 0.09
+    },
+    {
+      "task": 51,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 1e-05,
+        "weight_decay": 0.01
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-051_20260917_164458/result.json",
+      "result_sha256": "e1bde9629f11261127eae81b855080ad9835f48661a93a249b9ad97307ecf448",
+      "validation_accuracy": 0.09181818181818181
+    },
+    {
+      "task": 52,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 1e-05,
+        "weight_decay": 0.05
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-052_20260917_164810/result.json",
+      "result_sha256": "561a2aeae72933d32c7f3911ded1234a6fda02e930233abf3c4bdddff5d6387a",
+      "validation_accuracy": 0.09393939393939393
+    },
+    {
+      "task": 53,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 1e-05,
+        "weight_decay": 0.1
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-053_20260917_165838/result.json",
+      "result_sha256": "0989285df2280ebff312a2b0a932508c30fbfbf29fa74d652632ceb19ae9c3ec",
+      "validation_accuracy": 0.08696969696969697
+    },
+    {
+      "task": 54,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 1e-05,
+        "weight_decay": 0.3
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-054_20260917_165919/result.json",
+      "result_sha256": "a37a08a0e7ba26474874a24a2c1c3c649865bacb3b9c699d0f9bf919009fb54f",
+      "validation_accuracy": 0.08727272727272728
+    },
+    {
+      "task": 55,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 3e-05,
+        "weight_decay": 0.0
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-055_20260918_042045/result.json",
+      "result_sha256": "d7009c0dc62e6a9670cd4bc370ae581715319597579dfe7800f6e9e63105bad4",
+      "validation_accuracy": 0.08393939393939394
+    },
+    {
+      "task": 56,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 3e-05,
+        "weight_decay": 0.01
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-056_20260918_042046/result.json",
+      "result_sha256": "52b3f2933cca047065e04074b058b269e5563f6bc6cbeff0cc152b4cfa736a9e",
+      "validation_accuracy": 0.08060606060606061
+    },
+    {
+      "task": 57,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 3e-05,
+        "weight_decay": 0.05
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-057_20260917_173607/result.json",
+      "result_sha256": "443218abf6f1231ed3d07d0b7c7af8e8924a0c57d8aeb0756c112e469c6ceab4",
+      "validation_accuracy": 0.08787878787878788
+    },
+    {
+      "task": 58,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 3e-05,
+        "weight_decay": 0.1
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-058_20260917_174432/result.json",
+      "result_sha256": "173ed0f1bce0cd6f9762988248a5720ad604e651af5f4344426d2c7f6dc37437",
+      "validation_accuracy": 0.06666666666666667
+    },
+    {
+      "task": 59,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 3e-05,
+        "weight_decay": 0.3
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-059_20260917_175051/result.json",
+      "result_sha256": "7bde282da23713e0fa657122f26e723cd85fd5996f14a8fcb36a19a887d855c9",
+      "validation_accuracy": 0.06363636363636363
+    },
+    {
+      "task": 60,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 0.0001,
+        "weight_decay": 0.0
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-060_20260917_175457/result.json",
+      "result_sha256": "654ae156822a356628cd1ca11990cc68119c98cf1547688006c348f51d975946",
+      "validation_accuracy": 0.06121212121212121
+    },
+    {
+      "task": 61,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 0.0001,
+        "weight_decay": 0.01
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-061_20260917_180657/result.json",
+      "result_sha256": "ea416edc5199904bc17bce67b76faecd105f654f0db2a49c30da36ddca1f155b",
+      "validation_accuracy": 0.07303030303030303
+    },
+    {
+      "task": 62,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 0.0001,
+        "weight_decay": 0.05
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-062_20260917_181516/result.json",
+      "result_sha256": "db1b0cda5d92f2ea74c473fb5ab861a0b9b50caf772cc1f3a08823015bc6da6e",
+      "validation_accuracy": 0.08606060606060606
+    },
+    {
+      "task": 63,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 0.0001,
+        "weight_decay": 0.1
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-063_20260917_181720/result.json",
+      "result_sha256": "2f86ed1b621b82fcbd96955f23319378adc4c69e5712b9f3ec5f53d444d20910",
+      "validation_accuracy": 0.08393939393939394
+    },
+    {
+      "task": 64,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 0.0001,
+        "weight_decay": 0.3
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-064_20260917_181854/result.json",
+      "result_sha256": "91985fa366d695e506e1d71910ca2bc8f1f77f7e6d2cbd7c918668ce12636b67",
+      "validation_accuracy": 0.07909090909090909
+    },
+    {
+      "task": 65,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 0.0003,
+        "weight_decay": 0.0
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-065_20260917_181940/result.json",
+      "result_sha256": "4e5add3daea644e59682f9b65d72c2f05bff452588619685de2b7548e4ab3243",
+      "validation_accuracy": 0.08151515151515151
+    },
+    {
+      "task": 66,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 0.0003,
+        "weight_decay": 0.01
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-066_20260917_183110/result.json",
+      "result_sha256": "de30f1e3f35b165784b4cf4131c8a71d2efb9fee93218ccceaf6e4b4a67a6928",
+      "validation_accuracy": 0.06575757575757575
+    },
+    {
+      "task": 67,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 0.0003,
+        "weight_decay": 0.05
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-067_20260917_183509/result.json",
+      "result_sha256": "76571baf13a43466d4b5e21d30d9b6cf432aac273ce1d9e399b016bea63d4657",
+      "validation_accuracy": 0.06545454545454546
+    },
+    {
+      "task": 68,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 0.0003,
+        "weight_decay": 0.1
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-068_20260917_183727/result.json",
+      "result_sha256": "455fe5482bd7c829d7c87233cd1b815a1d1d3db6995d5b21fb92e0cb71f9d1be",
+      "validation_accuracy": 0.09848484848484848
+    },
+    {
+      "task": 69,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 0.0003,
+        "weight_decay": 0.3
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-069_20260917_183903/result.json",
+      "result_sha256": "6e08b82dfd40aa289a29c4d00ef3005377a6b0b1ae118c781807f45ef3b3e12e",
+      "validation_accuracy": 0.09090909090909091
+    },
+    {
+      "task": 70,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 0.001,
+        "weight_decay": 0.0
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-070_20260917_184104/result.json",
+      "result_sha256": "c8c458b6ec798916763b570737fb80f74c79cd9b0815e31ed9bba626d2a9eb12",
+      "validation_accuracy": 0.06636363636363636
+    },
+    {
+      "task": 71,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 0.001,
+        "weight_decay": 0.01
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-071_20260917_184209/result.json",
+      "result_sha256": "cfccb368e2f3eb17b336f97d8bbabc776c251fe2cac6dabd128629b2ad0b00f0",
+      "validation_accuracy": 0.0809090909090909
+    },
+    {
+      "task": 72,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 0.001,
+        "weight_decay": 0.05
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-072_20260917_184155/result.json",
+      "result_sha256": "8cf2fc47515e2154625cbcfafa70f4278525b10cd67498d469fa28c9ec471b1b",
+      "validation_accuracy": 0.08818181818181818
+    },
+    {
+      "task": 73,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 0.001,
+        "weight_decay": 0.1
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-073_20260917_184333/result.json",
+      "result_sha256": "b6002d53adbc17d6c8c4912e23ace5fcfb5abffb67153b0c8309047f8cd518e2",
+      "validation_accuracy": 0.08484848484848485
+    },
+    {
+      "task": 74,
+      "cell": {
+        "protocol": "unseen_room_subject_rotation_3",
+        "learning_rate": 0.001,
+        "weight_decay": 0.3
+      },
+      "result_path": "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/runs/grid-074_20260917_184340/result.json",
+      "result_sha256": "6075daeaecbfcceedd2dbd512c3806c63bcba9351befd4e0f57568c14e10744f",
+      "validation_accuracy": 0.09878787878787879
+    }
+  ],
+  "source_sha256": {
+    "source/wireless-sensing/experiments-on-xrf55/subject_splits.json": "52610574a5a1af8097b141a39055a60348e3ecc20087df3f749b6ebd8afc0847",
+    "source/wireless-sensing/experiments-on-xrf55/baseline_protocols.py": "259d2f8921ac23ed844a79d542bbd6c3a0015f68a5ba59ab6eb8c600c5dafd9c",
+    "source/wireless-sensing/experiments-on-xrf55/split.py": "2d41f32ec9db3108cefc76517c7fc0d4485e0114856029bb7262d4cdec8444fb",
+    "source/x-fi/XRF55_HAR/near_chance.py": "b99d2406d6c82e4ef6d276f4b3472d70b3b5fe28fca3810c2d5065282bc6c8c2",
+    "source/x-fi/XRF55_HAR/search_backbone.py": "9773caa152496c2f0233443dcdf5455fcef4e1c542e4255af9a649a642b059f8",
+    "source/x-fi/XRF55_HAR/XRF55_Dataset.py": "acd30c5e8f1c616a6c0215dde8ce8158297c4d9c9b61b7a7ec3b684ab1fec41f",
+    "source/x-fi/XRF55_HAR/protocol_backbone_runner.py": "7ac45ed0f45ac5dc9f484ec582d1600ea53faf15f92b4ba05ae07a5a54214c04",
+    "source/x-fi/XRF55_HAR/pretrain_backbones.py": "30c721009eb796f3dfd0ac7a94b63e872a3fd022366d20cf17582b5194ef4bad",
+    "source/x-fi/XRF55_HAR/protocol_backbone_grid.py": "04dc7ee24e54ca642f13746b9c3216d3b7917871d4a8d6fee81226b9dacf0eb3",
+    "source/x-fi/XRF55_HAR/search_protocol_backbone.py": "c3a50a79a482ca6f68999763843e7f9fd7c9c33035cf812488647296c918735f",
+    "source/x-fi/XRF55_HAR/backbone_models/mmWave/ResNet.py": "43c98e1b53729fdbb985cf08dfb632a43b8647e9b3a203af4f2291edb7a68593",
+    "source/x-fi/XRF55_HAR/backbone_models/WIFI/ResNet.py": "f0dc9da6d0499dddd45142bee6a44dcfb0011a9c2a73f07fa25e8fa88b9a6dd1",
+    "source/x-fi/XRF55_HAR/backbone_models/RFID/ResNet.py": "c5cfa4b0cd1ad28811ee618f6899fce8ae1c0af373128f1b2ecddf505dd6ebb1",
+    "source/x-fi/XRF55_HAR/protocol_snapshot_v2/sha256.json": "b7118a9ddb96c18c87793009d1b4b82987690862389e4976da6fb2c42ad7d6bb",
+    "source/x-fi/XRF55_HAR/protocol_snapshot_v2/split.py": "2d41f32ec9db3108cefc76517c7fc0d4485e0114856029bb7262d4cdec8444fb",
+    "source/x-fi/XRF55_HAR/protocol_snapshot_v2/subject_splits.json": "52610574a5a1af8097b141a39055a60348e3ecc20087df3f749b6ebd8afc0847",
+    "source/x-fi/XRF55_HAR/protocol_snapshot_v2/dataset.py": "3013551c6f583f1200d51ff1a26f4bb89779e8d91ca0e31a2818ae7166e6e0b4",
+    "source/compass/shared/__init__.py": "480ad7dc341091249b3085ac6f2a87d2448b17c162fab4d12c0a19818b6cc899",
+    "source/compass/shared/utils/metric.py": "2e106f8d96b1504a2e48bdacfdcb32e9ba1d1f79642b7b4977e896417f122272",
+    "source/compass/shared/utils/optimizers.py": "ee36bb65f3667c1b95fff226a96f444faa6abfd5c717d0c25d9ebdb6dfb1a800",
+    "source/compass/shared/utils/utils.py": "0c8e68837781595b69709b509ab1fdeacbeb23929545fd9b699c9abb448cf629",
+    "source/compass/shared/utils/proxy_routing.py": "1ae4c6d5ee889ba705be2ed6d27074814dc656d2f2cd6c47ad719b05ee7822cf",
+    "source/compass/shared/utils/schedulers.py": "5a8d581e11796bc5ea8e6b49ae39478b413abb1ea289206ef66ea7f4d978c036",
+    "source/compass/shared/utils/__init__.py": "ade8d0739f4ffbb54ba0b627bb58f1437a2d77254e59764ccf5540940cc1b551",
+    "source/compass/XRF55_HAR/Encoders.py": "794f52f690048b062b02ba4488eda6e9836ee256aefd73680aba948d8dbffa8a",
+    "source/compass/XRF55_HAR/Extractor.py": "f1d571f12ae6b74c621357146598a4f476cbacb15c9e022b6f0642330557f1f9",
+    "source/compass/XRF55_HAR/train.py": "a346c4ffa49a0810413bcf79255d77111fb09519ec572e629ab18161c4e5997c",
+    "source/compass/XRF55_HAR/test_protocol_training.py": "4a575523ac18ed52a601e0c0d3961d8effcf827f41f9943c3d4d540ee017d030",
+    "source/compass/XRF55_HAR/config.py": "71d7034df131ffc0d0e14800113a89a276d37d8469a4572527e546211523ceff",
+    "source/compass/XRF55_HAR/submit_proposed_grid.sh": "a9d70dd473ebf076d5eb5f62add3cce2ab706725a2aeb72ee10d246c676db0c7",
+    "source/compass/XRF55_HAR/test_proposed_grid.py": "49755777a805a4e3ef9993e74b14067fccd74b72b6015b7a2807431eee2f76c6",
+    "source/compass/XRF55_HAR/eval_all.py": "079a86645f5dcfe81cde717969cf4708677e11ac0b3425e7111f6900914269e8",
+    "source/compass/XRF55_HAR/split_xrf55_all_scenes.py": "869aa0ad80addd27275655834e9be1a9ba21533549ff525c5a44bdc60730037a",
+    "source/compass/XRF55_HAR/misc.py": "35187fc441e2eba928cc8ab9d88344f74b5cea2a1db0e64658493de72176105e",
+    "source/compass/XRF55_HAR/proposed_grid.py": "a0a487d449c23687190bf4e39853aa1085e31e08075f85d31d4f18267b9e862d",
+    "source/compass/XRF55_HAR/backbone_models/RFID/ResNet.py": "c5cfa4b0cd1ad28811ee618f6899fce8ae1c0af373128f1b2ecddf505dd6ebb1",
+    "source/compass/XRF55_HAR/backbone_models/RFID/BiLSTM.py": "aa70784464fceee1b3796ea5c867bc0cdfa73f7050a7484763e0c0237b62b3b5",
+    "source/compass/XRF55_HAR/backbone_models/WIFI/BiLSTM.py": "7bece7d6fc6bf621c328cacd8202e70d6b29723af3f14cfaedfa3d6c438ecc9c",
+    "source/compass/XRF55_HAR/backbone_models/WIFI/ResNet.py": "f0dc9da6d0499dddd45142bee6a44dcfb0011a9c2a73f07fa25e8fa88b9a6dd1",
+    "source/compass/XRF55_HAR/backbone_models/mmWave/ResNet.py": "43c98e1b53729fdbb985cf08dfb632a43b8647e9b3a203af4f2291edb7a68593",
+    "source/compass/XRF55_HAR/models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "source/compass/XRF55_HAR/models/cmpt_model_xrf55.py": "a2ac322b085034ef1958b5e4ff5a31a47f87955f7cdf0cd29193da0c7f3ebf25",
+    "source/compass/XRF55_HAR/dataset/xrf55_dataset.py": "ca0f7601b6342a5052d950e87a3c4038055888821e494922c24f65c53cdbe634",
+    "source/compass/XRF55_HAR/dataset/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "launcher.py": "34a5ac561150e325ac5fb4f12e2d34e2479b1b12c952c26605aca19d05c9dd19",
+    "submit.sh": "ffcef0851f47e6fbdf859b49b108eba90d14c6231b46db72532ef6ed680d91b2",
+    "train-validation.patch": "642ba456aa9f394d7f1cfae2e202558bed6048300b973f612b9cfc2a66223f7f",
+    "dataset.json": "788444bb84d6723d8d07939914b754ea2156daddd493eac55fa7bf78934139bd"
+  },
+  "backbone_sha256": {
+    "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_1/wifi/result.json": "d79aaefeef699dd2ac6dba4fef0185907c456a1cdfee59cb5f85aaefd73cfa68",
+    "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_1/wifi/model.state_dict.pt": "05c5fbdc182a93ddaa74c815265b7eef1c5ec0cfbade806947462424b0947ecb",
+    "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_1/rfid/result.json": "97c0c5852c8f2a824782e3c814afaa12bd8ddf8f9f2d89efb1e9439985e102aa",
+    "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_1/rfid/model.state_dict.pt": "cd7cf99de9f3f996751608c3c214dde386089635b0fd0a0f92f8f07cde8041f6",
+    "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_1/mmwave/result.json": "dd92e79c978e1ace427cf32db69d6dadbd3d7e337d14a365d42baecabae30bef",
+    "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_1/mmwave/model.state_dict.pt": "99c2aaa6b3f9fba2defeb94a10a9a1defbecc5835b30752e2f1ca14192e20aa2",
+    "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_2/wifi/result.json": "69cbf700c7bcb14fdc66ff5e5791ebf1223945f1243e235e1b75416a4f57b14b",
+    "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_2/wifi/model.state_dict.pt": "4c3d0070946562e5064c24224a579928966de153e683fb2b10642a55bedd80aa",
+    "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_2/rfid/result.json": "b8705ffe94cf3309bb0774702cff55b50705e259c1f6cbd74fc2cc795d3e462d",
+    "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_2/rfid/model.state_dict.pt": "bc5a7b984d94ef4f79a74a071875790246125715dfd92ad72dbdd4fdda3023dd",
+    "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_2/mmwave/result.json": "d325334fa88c727a8457d2dbe4c4a00bc14ed33aaaccd2d146e842a0689cb2b0",
+    "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_2/mmwave/model.state_dict.pt": "b1571cbfda2814f2883700686d49aa4817092d818ac55267f5ebb9e04a449031",
+    "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_3/wifi/result.json": "c875cb13680856a1a2e0d8c6204674b5d90caf1bdc75de84d4136ad16b05106f",
+    "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_3/wifi/model.state_dict.pt": "e68e91689d1012fdb6ed41d7712db11c333f89e4740f6ca2209214e8c25dc588",
+    "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_3/rfid/result.json": "fd88ca2dd573aefa9efa537e617eb9b2e19ed97747a4d93c60c5a7db0e68d716",
+    "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_3/rfid/model.state_dict.pt": "b27c5e58c684ccfc6bda89f410e52c107b5433b5541c231e1752abdd82264e97",
+    "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_3/mmwave/result.json": "f1948cb87179f38e4f1b8ad660bda3d4a4821612aca1a94b16b6757af49cabd5",
+    "/mnt/weka/fgeikyan/rf-perception-papers/compass/outputs/proposed-seed1-four-splits/rotations/backbones/unseen_room_subject_rotation_3/mmwave/model.state_dict.pt": "3619c11112808ec38993cd18700ae2a848ae4c278d5801d72790e99a1f12d0bd"
+  },
+  "raw_root": "/mnt/weka/rmkrtchyan/ws/data/XRF55",
+  "epochs": 100,
+  "batch_size": 32,
+  "training": "exact train+validation union",
+  "initialization": "same train-only seed-1 backbones as tuning; fusion/fine-tuning seeds 1/2/3",
+  "selection": "epoch-100 validation accuracy; ties by original task order",
+  "test_policy": "fixed final checkpoint, seven modality subsets after training",
+  "python": "/mnt/weka/fgeikyan/rf-perception-papers/compass/.venv/bin/python"
+}
